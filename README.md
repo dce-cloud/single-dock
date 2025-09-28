@@ -1,9 +1,9 @@
 # single-dock
 
-基于 Docker Compose 快速搭建单机环境
+基于 Docker Compose 搭建的单体服务环境
 
 # IP地址
-内部IP地址：172.25.25.25 开始
+内部IP地址从 172.25.25.3 开始
 
 # 服务清单
 
