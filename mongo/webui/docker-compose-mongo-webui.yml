@@ -1,0 +1,25 @@
+volumes:
+  mongo-webui:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+
+### MongoDB WEBUI ##############################################
+  mongo-webui:
+    build:
+      context: ${MONGO_WEBUI_HOST_PATH}
+      args:
+        - MONGO_WEBUI_VERSION=${MONGO_WEBUI_VERSION}
+    container_name: ${MONGO_WEBUI_CONTAINER_NAME}
+    hostname: ${MONGO_WEBUI_HOSTNAME}
+    environment:
+      - ROOT_URL=${MONGO_WEBUI_ROOT_URL}
+      - MONGO_URL=${MONGO_WEBUI_MONGO_URL}
+      - INSTALL_MONGO=${MONGO_WEBUI_INSTALL_MONGO}
+    volumes:
+        - ${DATA_HOST_PATH}/${MONGO_WEBUI_CONTAINER_NAME}:/data/db
+    networks:
+      backend:
+        ipv4_address: ${MONGO_WEBUI_BACKEND_IP}
+    depends_on:
+      - "${MONGO_CONTAINER_NAME}"

@@ -1,0 +1,34 @@
+volumes:
+  redis-stack:
+    driver: ${VOLUMES_DRIVER}
+
+x-redis-stack:
+  redis-args: &redis-args "--requirepass ${REDIS_STACK_PASSWORD} --appendonly yes"
+
+services:
+
+### Redis Stack ##############################################
+  redis-stack:
+    build:
+      context: ${REDIS_STACK_HOST_PATH}
+      args:
+        - REDIS_STACK_VERSION=${REDIS_STACK_VERSION}
+    container_name: ${REDIS_STACK_CONTAINER_NAME}
+    hostname: ${REDIS_STACK_HOSTNAME}
+    volumes:
+      - ${DATA_HOST_PATH}/${REDIS_STACK_CONTAINER_NAME}:/data
+      - ${LOG_HOST_PATH}/${REDIS_STACK_CONTAINER_NAME}:/var/log/redis
+    ports:
+      - "${REDIS_STACK_HOST_PORT}:6379"
+      - "${REDIS_STACK_INSIGHT_PORT}:8001"
+    environment:
+      TZ: "${TZ}"
+      REDIS_ARGS: *redis-args
+    networks:
+      backend:
+        ipv4_address: ${REDIS_STACK_BACKEND_IP}
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "${REDIS_STACK_PASSWORD}", "2>/dev/null", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
