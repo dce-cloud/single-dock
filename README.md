@@ -8,7 +8,7 @@
 # 服务清单
 
 | status | service | backend ip | version | 备注 |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | [&check;] | portainer | 172.25.25.3 | 2.25.1-alpine | 127.0.0.1:19000 打开控制台 |
 | [&check;] | busybox | 172.25.25.4 | latest | |
 | [&check;] | mysql57 | 172.25.25.25 | 5.7 | |
