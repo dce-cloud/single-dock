@@ -18,6 +18,7 @@
 | [&check;] | memcached | 172.25.25.29 | 1.6.39 | |
 | [&check;] | mongo | 172.25.25.30 | 8.0.14 | |
 | [&check;] | postgres | 172.25.25.31 | 16.2 | |
+| [&cross;] | mssql | 172.25.25.32 | latest | |
 | [&cross;] | phpmyadmin | 172.25.25.101 | 5.2.1 | |
 
 # 使用到的镜像

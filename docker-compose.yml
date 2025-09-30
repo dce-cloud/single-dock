@@ -1,3 +1,12 @@
 include:
   - ./docker-compose-network.yml
   - ./portainer/docker-compose-portainer.yml
+  - ./busybox/docker-compose-busybox.yml
+  - ./mysql57/docker-compose-mysql.yml
+  - ./mysql8/docker-compose-mysql.yml
+  - ./redis/docker-compose-redis.yml
+  - ./redis-stack/docker-compose-redis-stack.yml
+  - ./memcached/docker-compose-memcached.yml
+  - ./mongo/docker-compose-mongo.yml
+  - ./postgres/docker-compose-postgres.yml
+  - ./mssql/docker-compose-mssql.yml

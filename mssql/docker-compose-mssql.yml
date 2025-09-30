@@ -1,5 +1,5 @@
 volumes:
-  mssql:
+  mssql-data:
     driver: ${VOLUMES_DRIVER}
 
 services:
@@ -9,13 +9,13 @@ services:
     build:
       context: ${MSSQL_HOST_PATH}
       args:
-        - MSSQL_VERSION=${MSSQL_VERSION}
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        MSSQL_VERSION: ${MSSQL_VERSION}
     hostname: ${MSSQL_HOSTNAME}
     container_name: ${MSSQL_CONTAINER_NAME}
-    privileged: true
-    user: root
+    restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - ${DATA_HOST_PATH}/${MSSQL_CONTAINER_NAME}:/var/opt/mssql # 需要777权限
+      - mssql-data:/var/opt/mssql
     ports:
       - "${MSSQL_HOST_PORT}:1433"
     environment:
