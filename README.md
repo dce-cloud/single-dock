@@ -18,10 +18,7 @@
 | [&check;] | memcached | 172.25.25.29 | 1.6.39 | |
 | [&check;] | mongo | 172.25.25.30 | 8.0.14 | |
 | [&check;] | postgres | 172.25.25.31 | 16.2 | |
-| [&check;] | postgres-postgis | 172.25.25.32 | latest | |
-| [&cross;] | mongo-webui | 172.25.25.100 | latest | |
 | [&cross;] | phpmyadmin | 172.25.25.101 | 5.2.1 | |
-| [&cross;] | pgadmin | 172.25.25.102 | latest | |
 
 # 使用到的镜像
 ```json
@@ -34,5 +31,6 @@
     "redis/redis-stack:7.4.0-v1",
     "memcached:1.6.39",
     "mongo:8.0.14",
+    "postgres:17.5-alpine3.22",
 ]
 ```

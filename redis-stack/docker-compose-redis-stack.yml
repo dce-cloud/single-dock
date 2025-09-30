@@ -33,6 +33,7 @@ services:
         ipv4_address: ${REDIS_STACK_BACKEND_IP}
     healthcheck:
       test: [ "CMD", "redis-cli", "-a", "${REDIS_STACK_PASSWORD}", "2>/dev/null", "ping"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
