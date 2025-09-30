@@ -18,6 +18,7 @@ services:
         REDIS_VERSION: ${REDIS_VERSION}
     container_name: ${REDIS_CONTAINER_NAME}
     hostname: ${REDIS_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
     command: *command
     volumes:
       - redis-data:/data

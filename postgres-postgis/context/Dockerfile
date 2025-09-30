@@ -1,7 +1,7 @@
 ARG POSTGIS_VERSION=latest
 FROM postgis/postgis:${POSTGIS_VERSION}
 
-LABEL maintainer="zz <373045134@qq.com>"
+LABEL maintainer="zaizai <373045134@qq.com>"
 
 ARG INSTALL_PGSQL_HTTP_FOR_POSTGIS13=false
 

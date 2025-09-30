@@ -15,17 +15,20 @@ services:
     hostname: ${MONGO_HOSTNAME}
     restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - mongo-data:/data/
+      - mongo-data:/data
     ports:
       - "${MONGO_HOST_PORT}:27017"
+      - "${MONGO_HOST_PATH}/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     environment:
+      TZ: ${TZ}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     networks:
       backend:
         ipv4_address: ${MONGO_BACKEND_IP}
     healthcheck:
-      test: [ "CMD", "mongosh", "--eval", "quit(db.runCommand(\"ping\").ok ? 0 : 2)"]
-      interval: 10s
+      test: ["CMD", "mongosh", "--username", "${MONGO_USERNAME}", "--password", "${MONGO_PASSWORD}", "--eval", "db.adminCommand('ping')"]
+      interval: 15s
       timeout: 5s
       retries: 5
+      start_period: 10s

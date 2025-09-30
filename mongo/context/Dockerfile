@@ -1,4 +1,7 @@
-ARG MONGO_VERSION=latest
-FROM mongo:${MONGO_VERSION}
+ARG DOCKER_REGISTRY_URL=
+ARG MONGO_VERSION=8.0.14
+FROM ${DOCKER_REGISTRY_URL}mongo:${MONGO_VERSION}
 
-LABEL maintainer="zz <373045134@qq.com>"
+LABEL maintainer="zaizai <373045134@qq.com>"
+
+ENV TZ=Asia/Shanghai

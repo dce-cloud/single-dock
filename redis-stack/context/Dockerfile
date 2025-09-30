@@ -2,4 +2,4 @@ ARG DOCKER_REGISTRY_URL=
 ARG REDIS_STACK_VERSION=latest
 FROM ${DOCKER_REGISTRY_URL}redis/redis-stack:${REDIS_STACK_VERSION}
 
-LABEL maintainer="zz <373045134@qq.com>"
+LABEL maintainer="zaizai <373045134@qq.com>"

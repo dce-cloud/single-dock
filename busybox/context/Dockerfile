@@ -2,4 +2,4 @@ ARG DOCKER_REGISTRY_URL=
 ARG BUSYBOX_VERSION=latest
 FROM ${DOCKER_REGISTRY_URL}busybox:${BUSYBOX_VERSION}
 
-LABEL maintainer="zz <373045134@qq.com>"
+LABEL maintainer="zaizai <373045134@qq.com>"

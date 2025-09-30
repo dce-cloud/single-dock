@@ -2,7 +2,7 @@ ARG DOCKER_REGISTRY_URL=
 ARG MEMCACHED_VERSION=1.6.39
 FROM ${DOCKER_REGISTRY_URL}memcached:${MEMCACHED_VERSION}-alpine
 
-LABEL maintainer="zz <373045134@qq.com>"
+LABEL maintainer="zaizai <373045134@qq.com>"
 
 CMD ["memcached"]
 
