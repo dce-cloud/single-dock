@@ -1,5 +1,5 @@
 volumes:
-  portainer:
+  portainer-data:
     driver: ${VOLUMES_DRIVER}
 
 secrets:
@@ -13,18 +13,27 @@ services:
     build:
       context: ${PORTAINER_HOST_PATH}
       args:
-        - PORTAINER_VERSION=${PORTAINER_VERSION}
-    command: ['--admin-password-file', '/run/secrets/portainer_admin_password']
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        PORTAINER_VERSION: ${PORTAINER_VERSION}
     container_name: ${PORTAINER_CONTAINER_NAME}
     hostname: ${PORTAINER_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
+    command: ['--admin-password-file', '/run/secrets/portainer_admin_password']
     volumes:
-      - ${DOCKER_SOCK_PATH_HOST}:/var/run/docker.sock:ro
-      - ${DATA_HOST_PATH}/${PORTAINER_CONTAINER_NAME}:/data
+      - ${DOCKER_SOCK_HOST_PATH}:/var/run/docker.sock:ro
+      - portainer-data:/data
     ports:
       - "${PORTAINER_HTTP_HOST_PORT}:9000"
-      - "${PORTAINER_HTTPS_HOST_PORT}:9443"
     networks:
       backend:
         ipv4_address: ${PORTAINER_BACKEND_IP}
     secrets:
         - portainer_admin_password
+    environment:
+      TZ: ${TZ}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/api/system/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

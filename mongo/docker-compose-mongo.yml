@@ -1,5 +1,5 @@
 volumes:
-  mongo:
+  mongo-data:
     driver: ${VOLUMES_DRIVER}
 
 services:
@@ -9,12 +9,13 @@ services:
     build:
       context: ${MONGO_HOST_PATH}
       args:
-        - MONGO_VERSION=${MONGO_VERSION}
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        MONGO_VERSION: ${MONGO_VERSION}
     container_name: ${MONGO_CONTAINER_NAME}
     hostname: ${MONGO_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - ${DATA_HOST_PATH}/${MONGO_CONTAINER_NAME}/db:/data/db
-      - ${DATA_HOST_PATH}/${MONGO_CONTAINER_NAME}/configdb:/data/configdb
+      - mongo-data:/data/
     ports:
       - "${MONGO_HOST_PORT}:27017"
     environment:

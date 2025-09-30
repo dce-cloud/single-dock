@@ -1,5 +1,7 @@
 volumes:
-  redis-stack:
+  redis-stack-data:
+    driver: ${VOLUMES_DRIVER}
+  redis-stack-log:
     driver: ${VOLUMES_DRIVER}
 
 x-redis-stack:
@@ -12,12 +14,13 @@ services:
     build:
       context: ${REDIS_STACK_HOST_PATH}
       args:
-        - REDIS_STACK_VERSION=${REDIS_STACK_VERSION}
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        REDIS_STACK_VERSION: ${REDIS_STACK_VERSION}
     container_name: ${REDIS_STACK_CONTAINER_NAME}
     hostname: ${REDIS_STACK_HOSTNAME}
     volumes:
-      - ${DATA_HOST_PATH}/${REDIS_STACK_CONTAINER_NAME}:/data
-      - ${LOG_HOST_PATH}/${REDIS_STACK_CONTAINER_NAME}:/var/log/redis
+      - redis-stack-data:/data
+      - redis-stack-log:/var/log/redis
     ports:
       - "${REDIS_STACK_HOST_PORT}:6379"
       - "${REDIS_STACK_INSIGHT_PORT}:8001"

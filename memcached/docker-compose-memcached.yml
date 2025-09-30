@@ -1,5 +1,5 @@
 volumes:
-  memcached:
+  memcached-data:
     driver: ${VOLUMES_DRIVER}
 
 services:
@@ -9,11 +9,13 @@ services:
     build:
       context: ${MEMCACHED_HOST_PATH}
       args:
-        - MEMCACHED_VERSION=${MEMCACHED_VERSION}
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        MEMCACHED_VERSION: ${MEMCACHED_VERSION}
     container_name: ${MEMCACHED_CONTAINER_NAME}
     hostname: ${MEMCACHED_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - ${DATA_HOST_PATH}/${MEMCACHED_CONTAINER_NAME}:/var/lib/memcached
+      - memcached-data:/var/lib/memcached
     ports:
       - "${MEMCACHED_HOST_PORT}:11211"
     environment:

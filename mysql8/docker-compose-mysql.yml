@@ -37,6 +37,7 @@ services:
         DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
     hostname: ${MYSQL8_HOSTNAME}
     container_name: ${MYSQL8_CONTAINER_NAME}
+    restart: ${DOCKER_RESTART_POLICY}
     volumes:
       - "mysql8-data:/bitnami/mysql/data"
       - "mysql8-log:/opt/bitnami/mysql/logs"

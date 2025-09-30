@@ -1,7 +1,3 @@
-volumes:
-  busybox:
-    driver: ${VOLUMES_DRIVER}
-
 services:
 
 ### Busybox ################################################
@@ -9,15 +5,15 @@ services:
     build:
       context: ${BUSYBOX_HOST_PATH}
       args:
-        - BUSYBOX_VERSION=${BUSYBOX_VERSION}
+        DOCKER_REGISTRY_URL: ${DOCKER_REGISTRY_URL}
+        BUSYBOX_VERSION: ${BUSYBOX_VERSION}
     container_name: ${BUSYBOX_CONTAINER_NAME}
     hostname: ${BUSYBOX_HOSTNAME}
+    restart: ${DOCKER_RESTART_POLICY}
     privileged: true
     stdin_open: true
     user: root
     tty: true
     networks:
-      frontend:
-        ipv4_address: ${BUSYBOX_FRONTEND_IP}
       backend:
         ipv4_address: ${BUSYBOX_BACKEND_IP}
