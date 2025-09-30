@@ -15,6 +15,7 @@ services:
     privileged: true
     user: root
     environment:
+      TZ: "${TZ}"
       PGADMIN_DEFAULT_EMAIL: "${PGADMIN_DEFAULT_EMAIL}"
       PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
     ports:

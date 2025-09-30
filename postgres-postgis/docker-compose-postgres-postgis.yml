@@ -13,9 +13,8 @@ services:
         - INSTALL_PGSQL_HTTP_FOR_POSTGIS13=${POSTGIS_INSTALL_PGSQL_HTTP_FOR_POSTGIS13}
     container_name: ${POSTGIS_CONTAINER_NAME}
     hostname: ${POSTGIS_HOSTNAME}
-    privileged: true
-    user: root
     environment:
+      TZ: "${TZ}"
       POSTGRES_DB: ${POSTGIS_POSTGRES_DB}
       POSTGRES_USER: ${POSTGIS_POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGIS_POSTGRES_PASSWORD}

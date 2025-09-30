@@ -13,6 +13,7 @@ services:
     container_name: ${PMA_CONTAINER_NAME}
     hostname: ${PMA_HOSTNAME}
     environment:
+      TZ: "${TZ}"
       PMA_ARBITRARY: 1
       MYSQL_USER: ${PMA_USER}
       MYSQL_PASSWORD: ${PMA_PASSWORD}

@@ -15,8 +15,8 @@
 | [&check;] | mysql8 | 172.25.25.26  | 8.0~8.3 | 默认是 8.3 |
 | [&check;] | redis | 172.25.25.27 | 7.4 | |
 | [&check;] | redis-stack | 172.25.25.28 | 7.4.0-v1 | |
-| [&check;] | memcached | 172.25.25.29 | 1.6.33 | |
-| [&check;] | mongo | 172.25.25.30 | 7.0.5 | |
+| [&check;] | memcached | 172.25.25.29 | 1.6.39 | |
+| [&check;] | mongo | 172.25.25.30 | 8.0.14 | |
 | [&check;] | postgres | 172.25.25.31 | 16.2 | |
 | [&check;] | postgres-postgis | 172.25.25.32 | latest | |
 | [&cross;] | mongo-webui | 172.25.25.100 | latest | |
@@ -33,5 +33,6 @@
     "redis:7.4-alpine",
     "redis/redis-stack:7.4.0-v1",
     "memcached:1.6.39",
+    "mongo:8.0.14",
 ]
 ```
