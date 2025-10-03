@@ -12,7 +12,7 @@
 | [&check;] | portainer | 172.25.25.3 | 2.33.2-alpine | 127.0.0.1:19000 打开控制台 |
 | [&check;] | busybox | 172.25.25.4 | 1.37 | |
 | [&check;] | mysql57 | 172.25.25.25 | 5.7 | |
-| [&check;] | mysql8 | 172.25.25.26  | 8.0~8.3 | 默认是 8.3 |
+| [&check;] | mysql8 | 172.25.25.26  | 8.4.6 | |
 | [&check;] | redis | 172.25.25.27 | 7.4 | |
 | [&check;] | redis-stack | 172.25.25.28 | 7.4.0-v1 | |
 | [&check;] | memcached | 172.25.25.29 | 1.6.39 | |
@@ -27,7 +27,7 @@
     "portainer/portainer-ce:2.31.2-alpine",
     "busybox:1.37",
     "bitnami/mysql:5.7.43",
-    "bitnami/mysql:8.3",
+    "mysql:8.4.6-oraclelinux9",
     "redis:7.4-alpine",
     "redis/redis-stack:7.4.0-v1",
     "memcached:1.6.39",
