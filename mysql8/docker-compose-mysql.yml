@@ -1,30 +1,12 @@
 volumes:
   mysql8-data:
     driver: ${VOLUMES_DRIVER}
-  mysql8-log:
-    driver: ${VOLUMES_DRIVER}
 
-x-mysql-environment: &mysql-environment
-    TZ: "${TZ}"
-    ALLOW_EMPTY_PASSWORD: "yes"
-    MYSQL_AUTHENTICATION_PLUGIN: "mysql_native_password"
-    MYSQL_CHARACTER_SET: "utf8mb4"
-    MYSQL_COLLATE: "utf8mb4_bin"
-    MYSQL_REPLICATION_MODE: "master"
-    MYSQL_ENABLE_SLOW_QUERY: "1"
-    MYSQL_LONG_QUERY_TIME: "1.0"
-
-x-mysql8-environment: &mysql8-environment
-    <<: *mysql-environment
-    MYSQL_EXTRA_FLAGS: "--secure-file-priv=/bitnami/mysql/secure-files/ --binlog-expire-logs-seconds=604800 --default-time-zone=+8:00 --max-allowed-packet=100M --log-timestamps=system --innodb-use-native-aio=0 --tls-version=TLSv1.2,TLSv1.3"
-    MYSQL_SQL_MODE: "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
-
-x-mysql-healthcheck: &mysql-healthcheck
-    test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
-    interval: 15s
-    timeout: 5s
-    retries: 5
-    start_period: 10s
+secrets:
+  mysql_root_password:
+    file: ${MYSQL8_HOST_PATH}/mysql_root_password
+  mysql_password:
+    file: ${MYSQL8_HOST_PATH}/mysql_password 
 
 services:
 
@@ -39,19 +21,24 @@ services:
     container_name: ${MYSQL8_CONTAINER_NAME}
     restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - "mysql8-data:/bitnami/mysql/data"
-      - "mysql8-log:/opt/bitnami/mysql/logs"
+      - "mysql8-data:/var/lib/mysql"
+      - "${MYSQL8_HOST_PATH}/conf:/etc/mysql/conf.d"
       - "${MYSQL8_HOST_PATH}/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     ports:
       - "${MYSQL8_HOST_PORT}:3306"
     environment:
-      <<: *mysql8-environment
-      MYSQL_SQL_MODE: "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+      TZ: "${TZ}"
       MYSQL_DATABASE: "${MYSQL8_DATABASE}"
       MYSQL_USER: "${MYSQL8_USER}"
-      MYSQL_PASSWORD: "${MYSQL8_PASSWORD}"
-      MYSQL_ROOT_PASSWORD: "${MYSQL8_ROOT_PASSWORD}"
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_INITDB_SKIP_TZINFO: "1"
     networks:
       backend:
         ipv4_address: ${MYSQL8_BACKEND_IP}
-    healthcheck: *mysql-healthcheck
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p=$(cat /run/secrets/mysql_root_password)']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
